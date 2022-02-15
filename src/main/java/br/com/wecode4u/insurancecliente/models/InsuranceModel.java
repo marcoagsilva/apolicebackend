@@ -2,7 +2,6 @@ package br.com.wecode4u.insurancecliente.models;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,7 +21,7 @@ public class InsuranceModel implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "insurance_id")
-	private UUID insuranceUID;
+	private Long insuranceUID;
 	
 	@Column(name = "startDate", nullable = false)
 	private Date startDate;
@@ -40,11 +39,11 @@ public class InsuranceModel implements Serializable {
 	@JoinColumn(name = "customer_id")
 	private CustomerModel customer;
 
-	public UUID getInsuranceUID() {
+	public Long getInsuranceUID() {
 		return insuranceUID;
 	}
 
-	public void setInsuranceUID(UUID insuranceUID) {
+	public void setInsuranceUID(Long insuranceUID) {
 		this.insuranceUID = insuranceUID;
 	}
 
@@ -78,5 +77,13 @@ public class InsuranceModel implements Serializable {
 
 	public void setInsuranceValue(float insuranceValue) {
 		this.insuranceValue = insuranceValue;
+	}
+
+	public CustomerModel getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(CustomerModel customer) {
+		this.customer = customer;
 	}
 }

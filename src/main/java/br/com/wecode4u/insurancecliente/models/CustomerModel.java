@@ -1,7 +1,6 @@
 package br.com.wecode4u.insurancecliente.models;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -19,7 +18,7 @@ public class CustomerModel implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "customer_id")
-	private UUID id;
+	private Long id;
 	
 	@Column(name="fullName", nullable = false)
 	private String fullName;
@@ -33,11 +32,11 @@ public class CustomerModel implements Serializable {
 	@Column(name="uf", nullable = false)
 	private String uf;
 
-	public UUID getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(UUID id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 
