@@ -34,7 +34,11 @@ public class CustomerController {
 	}
 	
 	@PostMapping()
-	public CustomerModel save(@RequestBody CustomerModel customerModel) {
+	public CustomerModel save(@RequestBody CustomerModel customerModel) throws Exception {
+		if(customerRepository.findByCpf(customerModel.getCpf()) != null) {
+			throw new Exception("CPF existente");
+		}
+		
 		return customerRepository.save(customerModel);
 	}
 	

@@ -5,5 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import br.com.wecode4u.insurancecliente.models.CustomerModel;
 
 public interface CustomerRepository extends JpaRepository<CustomerModel, Long> {
+	
+	public CustomerModel findByCpf(String cpf);
 
 }
