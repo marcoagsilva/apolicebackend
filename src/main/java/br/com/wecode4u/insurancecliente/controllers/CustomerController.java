@@ -31,19 +31,24 @@ public class CustomerController {
 	CustomerService customerService;
 	
 	@GetMapping("/{id}")
-	public Optional<CustomerModel> findById(@PathVariable Long id) {
-		return customerService.findById(id);
+	public ResponseEntity<Object> findById(@PathVariable Long id) {
+		Optional<CustomerModel> customerModel = customerService.findById(id);
+		if (!customerModel.isPresent()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado.");
+		}
+		
+		return ResponseEntity.status(HttpStatus.OK).body(customerModel);
 	}
 	
 	@GetMapping()
-	public List<CustomerModel> findAll() {
-		return customerService.findAll();
+	public ResponseEntity<List<CustomerModel>> findAll() {
+		return ResponseEntity.status(HttpStatus.OK).body(customerService.findAll());
 	}
 	
 	@PostMapping
 	public ResponseEntity<Object> save(@RequestBody @Valid CustomerDTO customerDTO) {
 		if(customerService.existsCPF(customerDTO.getCpf())) {
-			return ResponseEntity.status(HttpStatus.CONFLICT).body("CPF já existente");
+			return ResponseEntity.status(HttpStatus.CONFLICT).body("CPF já existente.");
 		}
 		
 		CustomerModel customerModel = new CustomerModel();
@@ -53,7 +58,9 @@ public class CustomerController {
 	}
 
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable Long id) {
+	public ResponseEntity<String> delete(@PathVariable Long id) {
 		customerService.delete(id);
+		
+		return ResponseEntity.status(HttpStatus.OK).body("Operação efetuada.");
 	}
 }
