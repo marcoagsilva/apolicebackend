@@ -18,7 +18,7 @@ public class CustomerModel implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "customer_id")
-	private Long id;
+	private Long customer_id;
 	
 	@Column(name="fullName", nullable = false)
 	private String fullName;
@@ -32,12 +32,12 @@ public class CustomerModel implements Serializable {
 	@Column(name="uf", nullable = false)
 	private String uf;
 
-	public Long getId() {
-		return id;
+	public Long getCustomer_id() {
+		return customer_id;
 	}
 
-	public void setId(Long id) {
-		this.id = id;
+	public void setCustomer_id(Long customer_id) {
+		this.customer_id = customer_id;
 	}
 
 	public String getFullName() {
