@@ -46,8 +46,12 @@ public class InsuranceController {
 	
 	@DeleteMapping("/{id}")
 	public ResponseEntity<String> delete(@PathVariable Long id) {
-		insuranceService.delete(id);
+		Optional<InsuranceModel> insuranceModel = insuranceService.findById(id);
+		if(!insuranceModel.isPresent()) {
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Apólice não encontrada.");
+		}
 		
+		insuranceService.delete(id);
 		return ResponseEntity.status(HttpStatus.OK).body("Operação efetuada.");
 	}
 }
