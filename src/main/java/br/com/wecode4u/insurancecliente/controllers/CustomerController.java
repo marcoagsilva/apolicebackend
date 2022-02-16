@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,7 +41,7 @@ public class CustomerController {
 		return ResponseEntity.status(HttpStatus.OK).body(customerModel);
 	}
 	
-	@GetMapping()
+	@GetMapping
 	public ResponseEntity<List<CustomerModel>> findAll() {
 		return ResponseEntity.status(HttpStatus.OK).body(customerService.findAll());
 	}
@@ -55,6 +56,20 @@ public class CustomerController {
 		BeanUtils.copyProperties(customerDTO, customerModel);
 		
 		return ResponseEntity.status(HttpStatus.CREATED).body(customerService.save(customerModel));
+	}
+	
+	@PutMapping
+	public ResponseEntity<Object> update(@PathVariable(value = "id") Long id, @RequestBody @Valid CustomerDTO customerDTO) {
+		Optional<CustomerModel> customerModelOptional = customerService.findById(id);
+		if(!customerModelOptional.isPresent()) {
+			ResponseEntity.status(HttpStatus.NOT_FOUND).body("Cliente não encontrado.");
+		}
+		
+		CustomerModel customerModel = new CustomerModel();
+		BeanUtils.copyProperties(customerDTO, customerModel);
+		customerModel.setCustomer_id(id);
+		
+		return ResponseEntity.status(HttpStatus.OK).body(customerService.save(customerModel));
 	}
 
 	@DeleteMapping("/{id}")

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import br.com.wecode4u.insurancecliente.dtos.CustomerDTO;
 import br.com.wecode4u.insurancecliente.models.CustomerModel;
 import br.com.wecode4u.insurancecliente.repositories.CustomerRepository;
 import br.com.wecode4u.insurancecliente.services.validators.CustomerValidators;
@@ -26,12 +27,10 @@ public class CustomerService {
 		return customerValidators.existsCPF(cpf); 
 	}
 	
-	@Transactional
 	public Optional<CustomerModel> findById(Long id) {
 		return customerRepository.findById(id);
 	}
 	
-	@Transactional
 	public List<CustomerModel> findAll() {
 		return customerRepository.findAll();
 	}
